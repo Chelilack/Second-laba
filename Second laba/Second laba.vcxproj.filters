@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы заголовков\tests">
+      <UniqueIdentifier>{d53ca553-b52e-44b6-9552-892a91a783a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Second laba.cpp">
@@ -26,12 +29,6 @@
     <ClInclude Include="DynamicArray.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="LinkedListTests.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicArrayTests.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Sequence.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -42,10 +39,16 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="LinkedListSequenceTests.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\tests</Filter>
     </ClInclude>
     <ClInclude Include="ArraySequenceTests.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArrayTests.h">
+      <Filter>Файлы заголовков\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedListTests.h">
+      <Filter>Файлы заголовков\tests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,80 +5,83 @@
 class ArraySequenceTests
 {
 private:
-	ArraySequence<char>* CreateExample()
+	ArraySequence<char>* CreateExample(const char* item)
 	{
-		char example[] = "Example";
-		char* examplePointer = new char[7];
-		examplePointer = example;
-		ArraySequence<char>* result = new ArraySequence<char>(examplePointer, 7);
-		return result;
+		char* example = new char[strlen(item)];
+		int length = strlen(item) + 1;
+		for (int i = 0; i < length; i++)
+		{
+			*(example + i) = *item++;
+		}
+		ArraySequence<char>* list = new ArraySequence<char>(example, strlen(example));
+		return list;
 	}
-	void Test_Get()
+	void CheckExample(ArraySequence<char>* item, const char* correct)
 	{
-		ArraySequence<char>* example = CreateExample();
-		assert(example->Get(0) == 'E');
-		assert(example->Get(6) == 'e');
-		assert(example->Get(2) == 'a');
-
-		assert(example->GetLength()== 7);
-		delete example;
-
+		for (int i = 0; i < item->GetLength(); i++)
+		{
+			assert(item->Get(i) == *(correct + i));
+		}
+		assert(item->GetLength() == strlen(correct));
 	}
 	void Test_Set()
 	{
-		ArraySequence<char>* example = CreateExample();
-		example->InsertAt(0, ')');
-		assert(example->Get(0) == ')');
-		assert(example->GetLength() == 8);
+		ArraySequence<char>* example = CreateExample("Example");
+		example->InsertAt('!', 1);
+		CheckExample(example, "E!xample");
 
-		example = CreateExample();
-		example->InsertAt(6, 'u');
-		assert(example->Get(6) == 'u');
-		assert(example->GetLength() == 8);
+		example = CreateExample("Example");
+		example->Append('!');
+		CheckExample(example, "Example!");
 
-		example = CreateExample();
-		example->InsertAt(2, 'r');
-		assert(example->Get(2) == 'r');
-		assert(example->GetLength() == 8);
+		example = CreateExample("Example");
+		example->Prepend('@');
+		CheckExample(example, "@Example");
+
 		delete example;
 	}
 	void Test_Remove()
 	{
-		ArraySequence<char>* example = CreateExample();
-
+		ArraySequence<char>* example = CreateExample("Example");
 		example->Remove(0);
-		assert(example->Get(0) == 'x');
-		assert(example->GetLength() == 6);
+		CheckExample(example, "xample");
 
-		example = CreateExample();
+		example = CreateExample("Example");
 		example->Remove(2);
-		assert(example->Get(2) == 'm');
-		assert(example->GetLength() == 6);
+		CheckExample(example, "Exmple");
+		
+		example = CreateExample("Example");
+		example->Remove(6);
+		CheckExample(example, "Exampl");
 
 		delete example;
 	}
 	void Test_Concat()
 	{
-		ArraySequence<char>* example = CreateExample();
-		ArraySequence<char>* example1 = CreateExample();
+		ArraySequence<char>* example = CreateExample("I want ");
+		ArraySequence<char>* example1 = CreateExample("extra points");
 		Sequence<char>* result = example->Concat((Sequence<char>*)example1);
-		for (int i = 0; i < result->GetLength(); i++)
-		{
-			assert(result->Get(i) == example1->Get(i % (result->GetLength() - example1->GetLength())));
-		}
-		delete example;
-		delete example1;
+		CheckExample((ArraySequence<char>*)result, "I want extra points");
 	}
 	void Test_GetSubList()
 	{
-		ArraySequence<char>* example = CreateExample();
-		ArraySequence<char>* subExample = (ArraySequence<char>*)example->GetSubsequence(5, 6);
-		assert(subExample->Get(0) == 'l');
+		ArraySequence<char>* example = CreateExample("Example");
+		ArraySequence<char>* subExample = (ArraySequence<char>*)example->GetSubsequence(5, 5);
+		CheckExample(subExample, "l");
+		subExample = (ArraySequence<char>*)example->GetSubsequence(5, 6);
+		CheckExample(subExample, "le");
 
-		subExample = (ArraySequence<char>*)example->GetSubsequence(3, 6);
-		assert(subExample->Get(0) == 'm');
-		assert(subExample->Get(1) == 'p');
-		assert(subExample->Get(2) == 'l');
+		example = CreateExample("Some peace of second laba");
+		subExample = (ArraySequence<char>*)example->GetSubsequence(0, 3);
+		CheckExample(subExample, "Some");
+		subExample = (ArraySequence<char>*)example->GetSubsequence(0, 6);
+		CheckExample(subExample, "Some pe");
+		subExample = (ArraySequence<char>*)example->GetSubsequence(5, 9);
+		CheckExample(subExample, "peace");
+		subExample = (ArraySequence<char>*)example->GetSubsequence(21, 24);
+		CheckExample(subExample, "laba");
+		subExample = (ArraySequence<char>*)example->GetSubsequence(0, 24);
+		CheckExample(subExample, "Some peace of second laba");
 		delete subExample;
 		delete example;
 	}
@@ -87,7 +90,6 @@ private:
 public:
 	void Test()
 	{
-		Test_Get();
 		Test_Set();
 		Test_Remove();
 		Test_Concat();

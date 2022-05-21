@@ -6,83 +6,70 @@ using namespace std;
 class DynamicArrayTests
 {
 private:
-	DynamicArray<char>* CreateExample()
+	DynamicArray<char>* CreateExample(const char* item)
 	{
-		char example[] = "Example";
-		char* examplePointer = new char[7];
-		examplePointer = example;
-		DynamicArray<char>* answer = new DynamicArray<char>(examplePointer, 7);
-		return answer;
+		char* example = new char[strlen(item)];
+		int length = strlen(item) + 1;
+		for (int i = 0; i < length; i++)
+		{
+			*(example + i) = *item++;
+		}
+		DynamicArray<char>* list = new DynamicArray<char>(example, strlen(example));
+		return list;
 	}
-	void Test_Get() 
+	void CheckExample(DynamicArray<char>* item, const char* correct)
 	{
-		DynamicArray<char>* example = CreateExample();
-		assert(example->Get(0)=='E');
-		assert(example->Get(6)=='e');
-		assert(example->Get(2)=='a');
-
-		assert(example->GetCount() == 7);
-		assert(example->GetSize() == 14);
-		delete example;
-
+		for (int i = 0; i < item->GetCount(); i++)
+		{
+			assert(item->Get(i) == *(correct + i));
+		}
+		assert(item->GetCount() == strlen(correct));
 	}
 	void Test_Set()
 	{
-		DynamicArray<char>* example = CreateExample();
-		example->Set(0, ')');
-		assert(example->Get(0) == ')');
-		assert(example->GetCount() == 8);
-		assert(example->GetSize() == 14);
-		
-		example = CreateExample();
-		example->Set(6, 'u');
-		assert(example->Get(6) == 'u');
-		assert(example->GetCount() == 8);
-		assert(example->GetSize() == 14);
-		
-		example = CreateExample();
-		example->Set(2, 'r');
-		assert(example->Get(2) == 'r');
-		assert(example->GetCount() == 8);
-		assert(example->GetSize() == 14);
+		DynamicArray<char>* example = CreateExample("Example");
+		example->Set(1,'!');
+		CheckExample(example, "E!xample");
+
+		example = CreateExample("Example");
+		example->Set(6, '!');
+		CheckExample(example, "Exampl!e");
+
+		example = CreateExample("Example");
+		example->Set(0,'@');
+		CheckExample(example, "@Example");
 
 		delete example;
 	}
 	void Test_Remove()
 	{
-		DynamicArray<char>* example = CreateExample();
-		
+		DynamicArray<char>* example = CreateExample("Example");
+
 		example->Remove(0);
-		assert(example->Get(0) == 'x');
-		assert(example->GetCount() == 6);
-		assert(example->GetSize() == 14);
+		CheckExample(example,"xample");
+		
 
-		example = CreateExample();
+		example = CreateExample("Example");
 		example->Remove(2);
-		assert(example->Get(2) == 'm');
-		assert(example->GetCount() == 6);
-		assert(example->GetSize() == 14);
+		CheckExample(example, "Exmple");
 
+		example = CreateExample("Example");
+		example->Remove(6);
+		CheckExample(example, "Exampl");
 
 
 		delete example;
 	}
 	void Test_Resize()
 	{
-		DynamicArray<char>* example = CreateExample();
+		DynamicArray<char>* example = CreateExample("Example");
 		example->Resize(3);
-		assert(example->Get(0) == 'E');
-		assert(example->Get(1) == 'x');
-		assert(example->Get(2) == 'a');
-		assert(example->GetCount() == 3);
-		assert(example->GetSize() ==3 );
-
+		CheckExample(example, "Exa");
 		delete example;
 	}
 public:
 	void Test()
 	{
-		Test_Get();
 		Test_Set();
 		Test_Remove();
 		Test_Resize();

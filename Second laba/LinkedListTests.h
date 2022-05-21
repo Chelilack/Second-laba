@@ -9,99 +9,89 @@ class LinkedListTests
 	
 
 private:
-	LinkedList<char>* CreateExample() 
+	LinkedList<char>* CreateExample(const char* item)
 	{
-		
-		char example[] = "Example";
-		char* examplePointer = new char[7];
-		examplePointer= example;
-		
-		LinkedList<char>* list = new LinkedList<char>(example,7);
+		char* example=new char[strlen(item)];
+		int length = strlen(item)+1;
+		for (int i = 0; i <length; i++) 
+		{
+			*(example+i) = *item++;
+		}
+		LinkedList<char>* list = new LinkedList<char>(example, strlen(example));
 		return list;
 	}
-	void Test_Get() 
+	void CheckExample(LinkedList<char>* item,const char* correct)
 	{
-		LinkedList<char>* example =CreateExample();
-		assert(example->Get(0)=='E');
-		assert(example->Get(1)=='x');
-		assert(example->Get(2)=='a');
-		assert(example->Get(3)=='m');
-		assert(example->Get(4)=='p');
-		assert(example->Get(5)=='l');
-		assert(example->Get(6)=='e');
-		assert(example->GetFirst()== 'E');
-		assert(example->GetLast() == 'e');
-		assert(example->GetLength() == 7);
-		delete example;
+		for (int i = 0; i < item->GetLength(); i++) 
+		{
+			assert(item->Get(i) == *(correct+i));
+		}
+		assert(item->GetLength() == strlen(correct));
 	}
 	void Test_Set() 
 	{
-		LinkedList<char>* example = CreateExample();
-		
+		LinkedList<char>* example = CreateExample("Example");
 		example->InsertAt('!', 2);
-		assert(example->Get(2) == '!');
-		assert(example->Get(3) == 'a');
-		assert(example->Get(1) == 'x');
-		assert(example->GetLength() == 8);
-		
-		example = CreateExample();
-		example->Append('!');
-		assert(example->GetLast() == '!');
-		assert(example->Get(6) == 'e');
-		assert(example->GetLength() == 8);
+		CheckExample(example, "Ex!ample");
 
-		example = CreateExample();
-		example->Prepend('@');
-		assert(example->GetFirst() == '@');
-		assert(example->Get(1) == 'E');
-		assert(example->GetLength() == 8);
+		example = CreateExample("Example");
+		example->InsertAt('!', 1);
+		CheckExample(example, "E!xample");
+		
+		example = CreateExample("Example");
+		example->InsertAt('!', 6);
+		CheckExample(example, "Exampl!e");
+ 
+		example = CreateExample("ice lab");
+		example->Append('a');
+		CheckExample(example,"ice laba");
+		example->Prepend('N');
+		CheckExample(example, "Nice laba");
 
 		delete example;
-
-
 	}
 	void Test_GetSubList() 
 	{
-		LinkedList<char>* example = CreateExample();
-		LinkedList<char>* subExample = example->GetSubList(5,6);
-		assert(subExample->Get(0) == 'l');
-		assert(subExample->Get(1) == 'e');
+		LinkedList<char>* example = CreateExample("Some peace of second laba");
+		LinkedList<char>* subExample = example->GetSubList(0,3);
+		CheckExample(subExample, "Some");
+		subExample = example->GetSubList(0, 6);
+		CheckExample(subExample, "Some pe");
+		subExample = example->GetSubList(5, 9);
+		CheckExample(subExample, "peace");
+		subExample = example->GetSubList(21, 24);
+		CheckExample(subExample, "laba");
+		subExample = example->GetSubList(0, 24);
+		CheckExample(subExample, "Some peace of second laba");
 		delete subExample;
 		delete example;
 	}
 	void Test_Concat()
 	{
-		LinkedList<char>* example = CreateExample();
-		LinkedList<char>* example1 = CreateExample();
+		LinkedList<char>* example = CreateExample("I want ");
+		LinkedList<char>* example1 = CreateExample("extra points");
 		example=example->Concat(example1);
-		for (int i = 0; i < example->GetLength(); i++) 
-		{
-			assert(example->Get(i)== example1->Get(i%(example->GetLength()- example1->GetLength())));
-		}
+		CheckExample(example,"I want extra points");
 		delete example;
 		delete example1;
 	}
 	void Test_Remove()
 	{
-		LinkedList<char>* example = CreateExample();
+		LinkedList<char>* example = CreateExample("Example");
 		example->Remove(0);
-		assert(example->GetFirst() == 'x');
-		assert(example->GetLength() == 6);
+		CheckExample(example, "xample");
 		
-		example = CreateExample();
+		example = CreateExample("Example");
 		example->Remove(6);
-		assert(example->GetLast() == 'l');
-		assert(example->GetLength() == 6);
+		CheckExample(example, "Exampl");
 		
-		example = CreateExample();
+		example = CreateExample("Example");
 		example->Remove(5);
-		assert(example->Get(5) == 'e');
-		assert(example->GetLength() == 6);
+		CheckExample(example, "Exampe");
 	}
 public:
 	void Test() 
 	{
-		Test_Get();
 		Test_Set();
 		Test_GetSubList();
 		Test_Concat();
