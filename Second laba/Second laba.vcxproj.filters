@@ -16,6 +16,15 @@
     <Filter Include="Файлы заголовков\tests">
       <UniqueIdentifier>{d53ca553-b52e-44b6-9552-892a91a783a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\типы данных">
+      <UniqueIdentifier>{fd54bdb5-1f1b-4693-a1da-7051c34b3c52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\2 лаба">
+      <UniqueIdentifier>{f34f9dfb-8495-4b90-aa91-8008590ef588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\data sourse">
+      <UniqueIdentifier>{9c7ff465-a403-46a7-be4c-ed524a8e11a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Second laba.cpp">
@@ -23,21 +32,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LinkedList.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicArray.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Sequence.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ArraySequence.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkedListSequence.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="LinkedListSequenceTests.h">
       <Filter>Файлы заголовков\tests</Filter>
     </ClInclude>
@@ -50,5 +44,60 @@
     <ClInclude Include="LinkedListTests.h">
       <Filter>Файлы заголовков\tests</Filter>
     </ClInclude>
+    <ClInclude Include="Errors.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="queuePriority.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
+      <Filter>Файлы заголовков\типы данных</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexNumber.h">
+      <Filter>Файлы заголовков\типы данных</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
+      <Filter>Файлы заголовков\2 лаба</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedListSequence.h">
+      <Filter>Файлы заголовков\2 лаба</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Файлы заголовков\2 лаба</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArray.h">
+      <Filter>Файлы заголовков\2 лаба</Filter>
+    </ClInclude>
+    <ClInclude Include="ArraySequence.h">
+      <Filter>Файлы заголовков\2 лаба</Filter>
+    </ClInclude>
+    <ClInclude Include="queuePriorityTests.h">
+      <Filter>Файлы заголовков\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Teacher.h">
+      <Filter>Файлы заголовков\типы данных</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="functions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\опера\из гитхаба\name-generator-master\name-generator-master\resources\american\names.txt">
+      <Filter>Файлы заголовков\data sourse</Filter>
+    </Text>
+    <Text Include="..\..\..\опера\из гитхаба\4148741-98d35708fa344717d8eee15d11987de6c8e26d7d\4148741-98d35708fa344717d8eee15d11987de6c8e26d7d\1-1000.txt">
+      <Filter>Файлы заголовков\data sourse</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\опера\из гитхаба\name-generator-master\name-generator-master\resources\american\sur.txt">
+      <Filter>Файлы заголовков\data sourse</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include "Errors.h"
 using namespace std;
 
 template<typename T>
@@ -37,7 +38,7 @@ private:
 public:
 	void SetBegin(Item<T>* BeginPointer); 
 	void SetEnd(Item<T>* EndPointer);
-	void SetLength(T count);
+	void SetLength(int count);
 
 	Item<T>* GetBegin() const; 
 	Item<T>* GetEnd() const; 
@@ -61,7 +62,7 @@ public:
 	LinkedList<T>* GetSubList(int startIndex, int endIndex);
 	LinkedList<T>* Concat(LinkedList<T>* list);
 	void Remove(int index);
-	void Print();
+	//void Print();
 	
 
 };
@@ -77,7 +78,7 @@ void LinkedList<T>::SetEnd(Item<T>* EndPointer)
 	this->end = EndPointer; 
 }
 template<typename T>
-void LinkedList<T>::SetLength(T count) 
+void LinkedList<T>::SetLength(int count) 
 {
 	this->length = count; 
 }
@@ -104,6 +105,12 @@ LinkedList<T>::LinkedList() :begin(NULL), end(NULL), length(0) {}
 template<typename T>
 LinkedList<T>::LinkedList(T* items, int count) : length(count)
 {
+	if (count < 0)
+	{
+		errors(NegativeCount, "LinkedList<T>::LinkedList(T* items, int count)");
+		throw;
+	}
+	else if (items == NULL) { errors(NULLPointer, "LinkedList<T>::LinkedList(T* items, int count)"); throw; }
 	Item<T>* ItemPreviosPointer = new Item<T>(items[0]);
 	SetBegin(ItemPreviosPointer);
 	for (int i = 1; i < length; i++)
@@ -119,6 +126,7 @@ LinkedList<T>::LinkedList(T* items, int count) : length(count)
 template<typename T>
 LinkedList<T>::LinkedList(const LinkedList <T>* list) 
 {
+	if (list == NULL) { errors(NULLPointer, "LinkedList<T>::LinkedList(const LinkedList <T>* list)  "); throw; }
 	this->SetLength(list->GetLength());
 	Item<T>* SourceItemPointer = list->GetBegin();
 	Item<T>* CopyItemPointer = new Item<T>(SourceItemPointer->GetValue());
@@ -166,6 +174,12 @@ Item<T>* LinkedList<T>::FindWithIndex(int index)
 template<typename T>
 T LinkedList<T>::Get(int index)
 {
+	if (index < 0)
+	{
+		errors(NegativeIndex, "LinkedList<T>::Get(int index)");
+		throw;
+	}
+	else if (index >= this->GetLength()) { errors(IndexOutOfRange, " LinkedList<T>::Get(int index)"); throw; }
 	return this->FindWithIndex(index)->GetValue();
 }
 
@@ -184,6 +198,12 @@ T LinkedList<T>::GetLast()
 template<typename T>
 void LinkedList<T>::InsertAt(T item, int index)
 {
+	if (index < 0)
+	{
+		errors(NegativeIndex, "LinkedList<T>::InsertAt(T item, int index)");
+		throw;
+	}
+	else if (index >= this->GetLength() && this->GetLength()!=0) { errors(IndexOutOfRange, " LinkedList<T>::InsertAt(T item, int index)"); throw; }
 	Item<T>* oldItem = NULL;
 	Item<T>* pasteItem = new Item<T>(item);
 	if (index == 0 && this->FindWithIndex(index) == NULL)
@@ -238,6 +258,12 @@ void LinkedList<T>::Prepend(T item)
 template<typename T>
 void LinkedList<T>::Remove(int index)
 {
+	if (index < 0)
+	{
+		errors(NegativeIndex, " LinkedList<T>::Remove(int index)");
+		throw;
+	}
+	else if (index >= this->GetLength()) { errors(IndexOutOfRange, "  LinkedList<T>::Remove(int index)"); throw; }
 	Item<T>* uselessItemPoiner = this->FindWithIndex(index);
 	if (index == 0)
 	{
@@ -259,7 +285,7 @@ void LinkedList<T>::Remove(int index)
 
 }
 
-template<typename T>
+/*template<typename T>
 void LinkedList<T>::Print()
 {
 	Item<T>* example = this->GetBegin();
@@ -269,7 +295,7 @@ void LinkedList<T>::Print()
 		example = example->GetNext();
 	}
 	cout << endl;
-}
+}*/
 template<typename T>
 LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex)
 {

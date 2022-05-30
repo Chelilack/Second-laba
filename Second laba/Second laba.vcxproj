@@ -144,13 +144,29 @@
   <ItemGroup>
     <ClInclude Include="ArraySequence.h" />
     <ClInclude Include="ArraySequenceTests.h" />
+    <ClInclude Include="ComplexNumber.h" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="DynamicArrayTests.h" />
+    <ClInclude Include="Errors.h" />
+    <ClInclude Include="functions.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedListSequence.h" />
     <ClInclude Include="LinkedListSequenceTests.h" />
     <ClInclude Include="LinkedListTests.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="queuePriority.h" />
+    <ClInclude Include="queuePriorityTests.h" />
     <ClInclude Include="Sequence.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="Teacher.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\опера\из гитхаба\4148741-98d35708fa344717d8eee15d11987de6c8e26d7d\4148741-98d35708fa344717d8eee15d11987de6c8e26d7d\1-1000.txt" />
+    <Text Include="..\..\..\опера\из гитхаба\name-generator-master\name-generator-master\resources\american\names.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\опера\из гитхаба\name-generator-master\name-generator-master\resources\american\sur.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

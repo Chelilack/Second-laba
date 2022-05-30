@@ -67,12 +67,26 @@ private:
 		CheckExample(example, "Exa");
 		delete example;
 	}
+	void Test_Errors() 
+	{
+		DynamicArray<char>* example = CreateExample("Example");
+		example->Get(-1);
+		example->Get(20);
+		example->Set(-1,'G');
+		example->Set(20,'G');
+		example->Resize(-1);
+		example->Resize(0);
+		example->Remove(20);
+		example->Remove(-1);
+	}
 public:
 	void Test()
 	{
+		
 		Test_Set();
 		Test_Remove();
 		Test_Resize();
+		//Test_Errors();
 		cout << "DynamicArray->work correctly" << endl;
 	}
 };

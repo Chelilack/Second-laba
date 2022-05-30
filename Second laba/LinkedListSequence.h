@@ -2,7 +2,7 @@
 #include "Sequence.h"
 #include "LinkedList.h"
 template <class T>
-class LinkedListSequence : Sequence<T>
+class LinkedListSequence :public Sequence<T>
 {
 private:
     LinkedList<T>* items;
@@ -16,7 +16,7 @@ public:
     virtual T GetFirst()const;
     virtual T GetLast()const;
     virtual T Get(int index)const;
-    virtual int  GetLength()override; 
+    virtual int  GetLength()const override; 
     virtual void Remove(int index)override; 
     virtual void Append(T item)override; 
     virtual void Prepend(T item)override; 
@@ -65,7 +65,7 @@ T LinkedListSequence<T>::Get(int index)const
 }
 
 template <class T>
-int LinkedListSequence<T>::GetLength() 
+int LinkedListSequence<T>::GetLength() const
 { 
     return this->lenght; }
 
@@ -95,6 +95,7 @@ void LinkedListSequence<T>::InsertAt(T item, int index)
 template <class T>
 Sequence<T>* LinkedListSequence<T>::Concat(Sequence<T>* list)const
 {
+    if (list == NULL) { errors(NULLPointer, "LinkedListSequence<T>::Concat(Sequence<T>* list)"); throw; }
     list = (LinkedListSequence*)list;
     LinkedListSequence<T>* concatedSequence = new LinkedListSequence(this->items);
     for (int i = 0; i < list->GetLength(); i++)
@@ -107,6 +108,21 @@ Sequence<T>* LinkedListSequence<T>::Concat(Sequence<T>* list)const
 template <class T>
 Sequence<T>* LinkedListSequence<T>::GetSubsequence(int startIndex, int endIndex) const
 {
+    if (startIndex > endIndex)
+    {
+        cout << "(startIndex > endIndex) in LinkedListSequence<T>::GetSubsequence(int startIndex, int endIndex)" << endl;
+        throw;
+    }
+    else if (startIndex < 0)
+    {
+        errors(NegativeIndex, "LinkedListSequence<T>::GetSubsequence(int startIndex, int endIndex)");
+        throw;
+    }
+    else if (endIndex > this->items->GetLength())
+    {
+        errors(IndexOutOfRange, "LinkedListSequence<T>::GetSubsequence(int startIndex, int endIndex) ");
+        throw;
+    }
     Sequence<T>* subSequence = new LinkedListSequence();
 
     for (int i = startIndex; i < endIndex + 1; i++)
@@ -115,3 +131,4 @@ Sequence<T>* LinkedListSequence<T>::GetSubsequence(int startIndex, int endIndex)
     }
     return subSequence;
 }
+
